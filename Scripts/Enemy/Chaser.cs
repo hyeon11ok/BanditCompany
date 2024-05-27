@@ -5,7 +5,6 @@ using static UnityEngine.GraphicsBuffer;
 
 namespace EnemyEnum {
     public abstract class Chaser : Enemy {
-        protected Transform target_tr;
 
         public override void OnDrawGizmos() {
             if(transform.parent.GetComponent<EnemySpawner>() != null) {
@@ -22,7 +21,7 @@ namespace EnemyEnum {
 
             if (players.Length != 0) {
                 int idx = Random.Range(0, players.Length);
-                target_tr = players[idx].transform;
+                target = players[idx].gameObject;
                 return true;
             }
             return false;

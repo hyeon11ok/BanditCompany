@@ -6,6 +6,7 @@ namespace EnemyEnum {
         protected float chaseSpeed;
         protected float prowlSpeed;
         protected float prowlRange = 20;
+        protected Vector3 prowlPos;
         [Range(0f, 360f)][SerializeField] float viewAngle = 0f; // 유닛 시야각 구현 변수
 
         public override void OnDrawGizmos() {
@@ -37,7 +38,7 @@ namespace EnemyEnum {
                 NavMeshHit hit;
                 if (NavMesh.SamplePosition(randomPoint, out hit, prowlRange, NavMesh.AllAreas)) {
 
-                    targetPos = hit.position;
+                    prowlPos = hit.position;
                     return true;
                 }
             }
@@ -62,7 +63,7 @@ namespace EnemyEnum {
 
                     // 타겟으로 가는 레이캐스트에 obstacleMask가 걸리지 않으면 visibleTargets에 Add
                     if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask)) {
-                        targetPos = target.transform.position;
+                        this.target = target.gameObject;
                         return true;
                     }
                 }

@@ -5,7 +5,6 @@ using UnityEngine;
 namespace EnemyEnum {
     public abstract class Sentinel : Enemy {
         protected Vector3 spawnPos;
-        protected Transform target_tr;
 
         public Vector3 SpawnPos { set { spawnPos = value; } }
 
@@ -28,7 +27,7 @@ namespace EnemyEnum {
             Collider[] colls = Physics.OverlapSphere(spawnPos, sightRange, playerLayermask); // 스포너 기준으로 일정 범위 안에 들어오는 플레이어 탐색
 
             if (colls.Length > 0) {
-                target_tr = colls[0].transform;
+                target = colls[0].gameObject;
                 return true;
             } else {
                 return false;

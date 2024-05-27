@@ -12,7 +12,7 @@ namespace EnemyEnum {
         protected float moveSpeed;
         protected float atkRange;
         protected float sightRange;
-        protected Vector3 targetPos;
+        protected GameObject target;
         protected NavMeshAgent agent;
         protected EnemyState eState = EnemyState.Idle;
 
@@ -34,7 +34,9 @@ namespace EnemyEnum {
             dir.Normalize();
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), 5 * Time.deltaTime);
         }
-        public abstract void Attack();
+        public void Attack() {
+            // 플레이어 매니저에 접근하여 공격
+        }
         public abstract void OnDrawGizmos();
         public float GetDist(Vector3 target) {
             return Vector3.Distance(transform.position, target);

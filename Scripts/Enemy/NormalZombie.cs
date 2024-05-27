@@ -14,6 +14,7 @@ namespace EnemyEnum {
         void Update() {
             switch (eState) {
                 case EnemyState.Idle: {
+                        moveSpeed = prowlSpeed;
                         // 플레이어 체크
                         if (TargetSearch()) {
                             eState = EnemyState.Chase;
@@ -36,25 +37,25 @@ namespace EnemyEnum {
 
                         // 플레이어를 못 찾았을 경우
                         moveSpeed = prowlSpeed;
-                        Move(targetPos);
+                        Move(prowlPos);
                         // 목표지점에 도착했을 경우
-                        if (GetDist(targetPos) < 0.2f) {
+                        if (GetDist(prowlPos) < 0.2f) {
                             eState = EnemyState.Idle;
                         }
                     }
                     break;
                 case EnemyState.Chase: {
                         moveSpeed = chaseSpeed;
-                        Move(targetPos);
+                        Move(target.transform.position);
 
                         // 더이상 플레이어가 보이지 않을경우
                         if (!TargetSearch()) {
                             // 마지막 목격지점까지 이동 후에도 보이지 않으면 다시 Idle로
-                            if (GetDist(targetPos) < atkRange) {
+                            if (GetDist(target.transform.position) < atkRange) {
                                 eState = EnemyState.Idle;
                             }
                         } else {
-                            if (GetDist(targetPos) < atkRange) {
+                            if (GetDist(target.transform.position) < atkRange) {
                                 eState = EnemyState.Attack;
                             }
                         }
@@ -72,10 +73,6 @@ namespace EnemyEnum {
             atkRange = 3;
             sightRange = 7;
             agent = GetComponent<NavMeshAgent>();
-        }
-
-        public override void Attack() {
-            Debug.Log("Attack");
         }
     }
 }

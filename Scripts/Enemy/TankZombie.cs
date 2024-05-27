@@ -22,18 +22,14 @@ namespace EnemyEnum {
                     }
                     break;
                 case EnemyState.Chase: {
-                        Move(target_tr.position);
+                        Move(target.transform.position);
 
-                        if (GetDist(target_tr.position) < atkRange) {
+                        if (GetDist(target.transform.position) < atkRange) {
                             eState = EnemyState.Attack;
                         }
                     }
                     break;
             }
-        }
-
-        public override void Attack() {
-            throw new System.NotImplementedException();
         }
 
         public override void InitStatus() {
